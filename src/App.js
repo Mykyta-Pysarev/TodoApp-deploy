@@ -65,9 +65,11 @@ function App() {
       todos={todos} 
       setTodos={setTodos}
       filterTodos={filterTodos}
+      setInputText={setInputText}
         />
     </div>
   );
 }
 
 export default App;
+

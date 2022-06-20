@@ -10,7 +10,7 @@ const Form = ({setInputText, todos, setTodos, inputText, setStatus}) => {
     e.preventDefault();
     setTodos ([
       ...todos,
-      {text: inputText, completed: false, id: Math.random() * 1000}
+      {text: inputText, completed: false, edit: false, id: Math.random() * 1000}
     ]);
     setInputText('');
   }
@@ -21,7 +21,7 @@ const Form = ({setInputText, todos, setTodos, inputText, setStatus}) => {
   }
 
   return (
-    <form>
+    <form className="first-input">
       <input value={inputText} onChange={inputTextHandler} type="text" classNameNameName="todo-input" />
       <button onClick={submitTodoHandler} classNameName="todo-button" type="submit">
         <i className="fas fa-plus-square"></i>

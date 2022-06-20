@@ -27,13 +27,13 @@ form button {
   border: none;
   background: white;
 }
-form button {
+.first-input form, .first-input button {
   color: rgb(11, 212, 162);
   background: #f7fffe;
   cursor: pointer;
   transition: all 0.3s ease;
 }
-form button:hover {
+.first-input form, .first-input button:hover {
   background: rgb(11, 212, 162);
   color: white;
 }
@@ -61,8 +61,23 @@ form button:hover {
 .filter-todo {
   padding: 1rem;
 }
-.todo li {
+.todo li, .todo input{
   flex: 1;
+}
+
+.todo input {
+  font-size: 1.5rem;
+  padding: 0 0.5rem;
+  font-family: "Poppins", sans-serif;
+  border: none;
+}
+
+.todo form {
+  all:unset;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 100%;
 }
 
 .trash-btn,
@@ -97,6 +112,10 @@ form button:hover {
 
 .completed {
   text-decoration: line-through;
+  opacity: 0.5;
+}
+
+.input-completed {
   opacity: 0.5;
 }
 
