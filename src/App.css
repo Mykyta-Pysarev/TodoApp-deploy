@@ -20,6 +20,12 @@ form {
   justify-content: center;
   align-items: center;
 }
+.counters {
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 form input,
 form button {
   padding: 0.5rem;

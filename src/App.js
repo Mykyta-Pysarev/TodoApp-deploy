@@ -8,6 +8,9 @@ function App() {
   const[todos, setTodos] = useState([]);
   const[status, setStatus] = useState('all');
   const[filterTodos, setFilterTodos] = useState([]);
+  const [counterAdd, setCounterAdd] = useState(0);
+  const [counterEdit, setCounterEdit] = useState(0);
+  const [counterDelete, setCounterDelete] = useState(0);
 
   useEffect(() => {
     getLocalTodos();
@@ -59,13 +62,21 @@ function App() {
       setTodos={setTodos} 
       setInputText={setInputText}
       inputText={inputText}
-      setStatus={setStatus}  
+      setStatus={setStatus}
+      setCounterAdd={setCounterAdd}
+      counterAdd={counterAdd}  
+      counterEdit={counterEdit}
+      counterDelete={counterDelete}
       />
       <TodoList 
       todos={todos} 
       setTodos={setTodos}
       filterTodos={filterTodos}
       setInputText={setInputText}
+      counterEdit={counterEdit}
+      setCounterEdit={setCounterEdit}
+      counterDelete={counterDelete}
+      setCounterDelete={setCounterDelete}
         />
     </div>
   );

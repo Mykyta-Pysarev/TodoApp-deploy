@@ -1,7 +1,8 @@
 import React from "react";
 
-const Todo = ({ text, id, todos, setTodos, todo, setInputText }) => {
+const Todo = ({ text, id, todos, setTodos, todo, counterEdit, counterDelete, setCounterEdit, setCounterDelete }) => {
     const deleteHandler = () => {
+        setCounterDelete(counterDelete +1);
         setTodos(todos.filter(el => el.id !== todo.id))
     }
 
@@ -15,12 +16,17 @@ const Todo = ({ text, id, todos, setTodos, todo, setInputText }) => {
         ))
     }
 
-    const editHandler = () => {
+    const editHandler = (e) => {
+        e.preventDefault();
+        
         setTodos(todos.map(item => {
             if (item.id === todo.id) {
+                if(!item.edit){
+                    setCounterEdit(counterEdit +1);
+                }
                 return { ...item, edit: !item.edit }
             }
-            return item;
+             return item;
         }))
     }
 
@@ -37,17 +43,17 @@ const Todo = ({ text, id, todos, setTodos, todo, setInputText }) => {
 
     return (
         <div className="todo">
-        <form className="todo">
-        {
-                    todo.edit ? 
-                    <input type='text' autoFocus='autofocus' size={text.length} className={`todo-item ${todo.completed ? 'input-completed' : ''}`} value={text} onChange={inputTextHandler}></input>
-                    : <li className={`todo-item ${todo.completed ? 'completed' : ''}`}>{text}</li>
+            <form className="todo" onSubmit={editHandler}>
+                {
+                    todo.edit ?
+                        <input type='text' autoFocus='autofocus' size={text.length} className={`todo-item ${todo.completed ? 'input-completed' : ''}`} value={text} onChange={inputTextHandler}></input>
+                        : <li className={`todo-item ${todo.completed ? 'completed' : ''}`}>{text}</li>
                 }
                 <button type='button' className="complete-btn" onClick={completeHandler}><i className="fas fa-check"></i></button>
-                <button type='submit' className="edit-btn" onClick={editHandler}><i className="fas fa-solid fa-pen"></i></button>
-                <button className="trash-btn" onClick={deleteHandler}><i className="fas fa-trash"></i></button>
-        </form>
-               
+                <button type='submit' className="edit-btn" /*onClick={editHandler}*/><i className="fas fa-solid fa-pen"></i></button>
+                <button type='button' className="trash-btn" onClick={deleteHandler}><i className="fas fa-trash"></i></button>
+            </form>
+
         </div>
     );
 }
