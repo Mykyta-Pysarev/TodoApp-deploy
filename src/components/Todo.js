@@ -1,4 +1,5 @@
 import React from "react";
+import TextareaAutosize from 'react-textarea-autosize';
 
 const Todo = ({ text, id, todos, setTodos, todo, counterEdit, counterDelete, setCounterEdit, setCounterDelete }) => {
     const deleteHandler = () => {
@@ -27,6 +28,7 @@ const Todo = ({ text, id, todos, setTodos, todo, counterEdit, counterDelete, set
                 return { ...item, edit: !item.edit }
             }
              return item;
+                
         }))
     }
 
@@ -46,7 +48,7 @@ const Todo = ({ text, id, todos, setTodos, todo, counterEdit, counterDelete, set
             <form className="todo" onSubmit={editHandler}>
                 {
                     todo.edit ?
-                        <textarea type='text' autoFocus='autofocus' className={`todo-item ${todo.completed ? 'input-completed' : ''}`} value={text} onChange={inputTextHandler}></textarea>
+                        <TextareaAutosize type='text' autoFocus='autofocus' className={`todo-item ${todo.completed ? 'input-completed' : ''}`} value={text} onChange={inputTextHandler} />
                         : <li className={`todo-item ${todo.completed ? 'completed' : ''}`}>{text}</li>
                 }
                 <button type='button' className="complete-btn" onClick={completeHandler}><i className="fas fa-check"></i></button>
