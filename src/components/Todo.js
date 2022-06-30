@@ -46,7 +46,7 @@ const Todo = ({ text, id, todos, setTodos, todo, counterEdit, counterDelete, set
             <form className="todo" onSubmit={editHandler}>
                 {
                     todo.edit ?
-                        <input type='text' autoFocus='autofocus' size={text.length} className={`todo-item ${todo.completed ? 'input-completed' : ''}`} value={text} onChange={inputTextHandler}></input>
+                        <textarea type='text' autoFocus='autofocus' className={`todo-item ${todo.completed ? 'input-completed' : ''}`} value={text} onChange={inputTextHandler}></textarea>
                         : <li className={`todo-item ${todo.completed ? 'completed' : ''}`}>{text}</li>
                 }
                 <button type='button' className="complete-btn" onClick={completeHandler}><i className="fas fa-check"></i></button>

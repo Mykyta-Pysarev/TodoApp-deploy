@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Form from './components/Form';
 import TodoList from './components/TodoList';
+import fetchData from './components/FetchData';
 
 function App() {
-  const[inputText, setInputText] = useState("");
-  const[todos, setTodos] = useState([]);
-  const[status, setStatus] = useState('all');
-  const[filterTodos, setFilterTodos] = useState([]);
+  const [inputText, setInputText] = useState("");
+  const [todos, setTodos] = useState([]);
+  const [status, setStatus] = useState('all');
+  const [filterTodos, setFilterTodos] = useState([]);
   const [counterAdd, setCounterAdd] = useState(0);
   const [counterEdit, setCounterEdit] = useState(0);
   const [counterDelete, setCounterDelete] = useState(0);
@@ -41,9 +42,10 @@ function App() {
     localStorage.setItem('todos', JSON.stringify(todos));
   }
 
-  const getLocalTodos = () => {
+  const getLocalTodos = async () => {
     if(localStorage.getItem('todos') === null) {
-      localStorage.setItem('todos', JSON.stringify([]));
+      localStorage.setItem('todos', setTodos(await fetchData()));
+      console.log('We are HERE 1')
     } else {
       let todoLocal = JSON.parse(localStorage.getItem('todos'));
       // console.log(todoLocal);
