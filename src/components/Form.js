@@ -7,9 +7,16 @@ const Form = ({ setInputText, todos, setTodos, inputText, setStatus, setCounterA
 
   const submitTodoHandler = (e) => {
     e.preventDefault();
+    const date = new Date();
     setTodos([
       ...todos,
-      { text: inputText, completed: false, edit: false, id: Math.random() * 1000 }
+      { text: inputText,
+        completed: false,
+        edit: false,
+        id: Math.random() * 1000,
+        // createdAt: `${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}`
+        createdAt: date,
+      }
     ]);
     setInputText('');
     setCounterAdd(counterAdd + 1);

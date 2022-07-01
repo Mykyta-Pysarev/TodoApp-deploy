@@ -5,7 +5,7 @@ const TodoList = ({todos, setTodos, filterTodos, setInputText, counterEdit, coun
     return (
         <div className="todo-container">
             <ul className="todo-list">
-                {filterTodos.map(todo => ( 
+                {filterTodos.sort((a,b) => new Date (b.createdAt) - new Date (a.createdAt)).map(todo => ( 
                       <Todo 
                       key={todo.id} 
                       text={todo.text} 
