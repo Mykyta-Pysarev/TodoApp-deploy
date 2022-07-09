@@ -1,4 +1,4 @@
-* {
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -26,14 +26,19 @@ form {
   justify-content: center;
   align-items: center;
 }
-form input,
-form button {
+form input {
   padding: 0.5rem;
   font-size: 2rem;
   border: none;
   background: white;
 }
-.first-input form, .first-input button {
+
+button {
+  padding: 0;
+  align-items: center;
+  line-height: 0;
+} */
+/* .first-input form, .first-input button {
   color: rgb(11, 212, 162);
   background: #f7fffe;
   cursor: pointer;
@@ -42,8 +47,8 @@ form button {
 .first-input form, .first-input button:hover {
   background: rgb(11, 212, 162);
   color: white;
-}
-.todo-container {
+} */
+/* .todo-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -52,9 +57,13 @@ form button {
 .todo-list {
   min-width: 30%;
   list-style: none;
-}
+} */
 
-.todo {
+/* .filter-todo {
+  padding: 1rem;
+} */
+
+/* .todo {
   margin: 1rem;
   font-size: 2.1rem;
   color: black;
@@ -65,9 +74,6 @@ form button {
 }
 .todo li {
   background: white;
-}
-.filter-todo {
-  padding: 1rem;
 }
 .todo li, .todo textarea{
   flex: 1 1;
@@ -85,12 +91,11 @@ form button {
   all:unset;
   display: flex;
   justify-content: space-between;
-  /* align-items: flex-start; */
   max-width: 90%;
   min-width: 90%;
-}
+} */
 
-.trash-btn,
+/* .trash-btn,
 .complete-btn,
 .edit-btn {
   background: #f1d713;
@@ -105,8 +110,8 @@ form button {
 }
 .edit-btn {
   background: rgba(173, 173, 173, 0.867);
-}
-.todo-item {
+} */
+/* .todo-item {
   padding: 0rem 0.5rem;
 }
 
@@ -118,20 +123,19 @@ form button {
 .fall {
   transform: translateY(10rem) rotateZ(20deg);
   opacity: 0;
-}
+} */
 
-.completed {
+/* .completed {
   text-decoration: line-through;
   color:rgba(173, 173, 173, 0.867);
-  /* opacity: 0.5; */
 }
 
 .input-completed {
   color:rgba(173, 173, 173, 0.867);
-}
+} */
 
 /*CUSTOM SELECTOR */
-select {
+/* select {
   -webkit-appearance: none;
   -moz-appearance: none;
   -ms-appearance: none;
@@ -140,22 +144,22 @@ select {
   box-shadow: none;
   border: 0 !important;
   background-image: none;
-}
-
-/* Custom Select */
-.select {
-  margin: 1rem;
-  position: relative;
-  overflow: hidden;
-}
-select {
   color: black;
   font-family: "Poppins", sans-serif;
   cursor: pointer;
   width: 12rem;
-}
+  padding:1rem;
+} */
+
+/* Custom Select */
+/* .select {
+  margin: 1rem;
+  position: relative;
+  overflow: hidden;
+} */
+
 /* Arrow */
-.select::after {
+/* .select::after {
   content: "\25BC";
   position: absolute;
   top: 0;
@@ -164,7 +168,7 @@ select {
   background: rgb(11, 212, 162);
   cursor: pointer;
   pointer-events: none;
-}
+} */
 /* Transition */
 /*
 .select:hover::after {

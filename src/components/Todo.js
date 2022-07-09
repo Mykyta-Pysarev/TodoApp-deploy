@@ -1,9 +1,10 @@
 import React from "react";
-import TextareaAutosize from 'react-textarea-autosize';
+import { Button, TodoContainer, TodoForm, TodoInput, TodoLi } from "./Todo.style";
 
-const Todo = ({ text, id, todos, setTodos, todo, counterEdit, counterDelete, setCounterEdit, setCounterDelete }) => {
+
+const Todo = ({ background, text, id, todos, setTodos, todo, counterEdit, counterDelete, setCounterEdit, setCounterDelete }) => {
     const deleteHandler = () => {
-        setCounterDelete(counterDelete +1);
+        setCounterDelete(counterDelete + 1);
         setTodos(todos.filter(el => el.id !== todo.id))
     }
 
@@ -19,20 +20,22 @@ const Todo = ({ text, id, todos, setTodos, todo, counterEdit, counterDelete, set
 
     const editHandler = (e) => {
         e.preventDefault();
-        
+
         setTodos(todos.map(item => {
             if (item.id === todo.id) {
-                if(!item.edit){
-                    setCounterEdit(counterEdit +1);
+                if (!item.edit) {
+                    setCounterEdit(counterEdit + 1);
                 }
                 return { ...item, edit: !item.edit }
             }
-             return item;
-                
+            return item;
+
         }))
     }
 
     const inputTextHandler = (e) => {
+        e.preventDefault();
+
         setTodos(todos.map(item => {
             if (item.id === todo.id) {
                 return { ...item, text: e.target.value }
@@ -44,19 +47,23 @@ const Todo = ({ text, id, todos, setTodos, todo, counterEdit, counterDelete, set
 
 
     return (
-        <div className="todo">
-            <form className="todo" onSubmit={editHandler}>
+        <TodoContainer>
+            <TodoForm className="todo" onSubmit={editHandler}>
                 {
-                    todo.edit ?
-                        <TextareaAutosize type='text' autoFocus='autofocus' className={`todo-item ${todo.completed ? 'input-completed' : ''}`} value={text} onChange={inputTextHandler} />
-                        : <li className={`todo-item ${todo.completed ? 'completed' : ''}`}>{text}</li>
+                    todo.edit && !todo.completed
+                    ? <TodoInput type='text' autoFocus='autofocus' value={text} onChange={inputTextHandler} />
+                    : todo.edit && todo.completed
+                    ? <TodoInput completed type='text' autoFocus='autofocus' value={text} onChange={inputTextHandler} />
+                    : !todo.edit && !todo.completed
+                    ? <TodoLi background={background}>{text}</TodoLi>
+                    : <TodoLi completed>{text}</TodoLi>
                 }
-                <button type='button' className="complete-btn" onClick={completeHandler}><i className="fas fa-check"></i></button>
-                <button type='submit' className="edit-btn" /*onClick={editHandler}*/><i className="fas fa-solid fa-pen"></i></button>
-                <button type='button' className="trash-btn" onClick={deleteHandler}><i className="fas fa-trash"></i></button>
-            </form>
+                <Button complete type='button' onClick={completeHandler}><i className="fas fa-check"></i></Button>
+                <Button edit type='submit' className="edit-btn" /*onClick={editHandler}*/><i className="fas fa-solid fa-pen"></i></Button>
+                <Button type='button' className="trash-btn" onClick={deleteHandler}><i className="fas fa-trash"></i></Button>
+            </TodoForm>
 
-        </div>
+        </TodoContainer>
     );
 }
 

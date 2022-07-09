@@ -1,12 +1,14 @@
 import React from "react"
 import Todo from './Todo'
+import { TodoContainer } from "./Todo.style";
 
 const TodoList = ({todos, setTodos, filterTodos, setInputText, counterEdit, counterDelete, setCounterEdit, setCounterDelete}) => {
     return (
-        <div className="todo-container">
-            <ul className="todo-list">
+        <TodoContainer >
+            <ul>
                 {filterTodos.sort((a,b) => new Date (b.createdAt) - new Date (a.createdAt)).map(todo => ( 
                       <Todo 
+                      background={todo.background}
                       key={todo.id} 
                       text={todo.text} 
                       id={todo.id}
@@ -22,7 +24,7 @@ const TodoList = ({todos, setTodos, filterTodos, setInputText, counterEdit, coun
                        />
                       ))}
             </ul>
-        </div>
+        </TodoContainer>
     );
 }
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
+import './components/styles.scss'
 import Form from './components/Form';
 import TodoList from './components/TodoList';
 import fetchData from './components/FetchData';
