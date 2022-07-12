@@ -48,15 +48,15 @@ const Todo = ({ background, text, id, todos, setTodos, todo, counterEdit, counte
 
     return (
         <TodoContainer>
-            <TodoForm className="todo" onSubmit={editHandler}>
+            <TodoForm onSubmit={editHandler}>
                 {
                     todo.edit && !todo.completed
                     ? <TodoInput type='text' autoFocus='autofocus' value={text} onChange={inputTextHandler} />
                     : todo.edit && todo.completed
-                    ? <TodoInput completed type='text' autoFocus='autofocus' value={text} onChange={inputTextHandler} />
+                    ? <TodoInput completed background={background} type='text' autoFocus='autofocus' value={text} onChange={inputTextHandler} />
                     : !todo.edit && !todo.completed
                     ? <TodoLi background={background}>{text}</TodoLi>
-                    : <TodoLi completed>{text}</TodoLi>
+                    : <TodoLi completed background={background}>{text}</TodoLi>
                 }
                 <Button complete type='button' onClick={completeHandler}><i className="fas fa-check"></i></Button>
                 <Button edit type='submit' className="edit-btn" /*onClick={editHandler}*/><i className="fas fa-solid fa-pen"></i></Button>

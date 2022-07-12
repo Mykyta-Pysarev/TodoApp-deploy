@@ -9,8 +9,13 @@ async function fetchData() {
 
     let arr = await dataImport.json();
 
+    function getRandomIntInclusive() {
+        return Math.floor(Math.random() * (255 - 0 + 1)) + 0;
+      }
+
     arr.forEach(element => {
         element.completed = element.isCompleted;
+        element.background =`rgb(${getRandomIntInclusive()}, ${getRandomIntInclusive()}, ${getRandomIntInclusive()})`;
         delete element.isCompleted;
         console.log(element);
     });

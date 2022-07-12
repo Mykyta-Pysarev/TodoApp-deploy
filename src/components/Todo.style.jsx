@@ -4,7 +4,7 @@ export const Button = styled.button`
         background: #f1d713;
         color: white;
         border: none;
-        padding: 1rem;
+        padding: 0.5rem;
         cursor: pointer;
         font-size: 1rem;
 
@@ -30,8 +30,8 @@ export const Button = styled.button`
     `;
 
 export const TodoContainer = styled.div`
-        margin: 1rem;
-        font-size: 2.1rem;
+        margin: 0 0 1rem 0;
+        font-size: 1rem;
         color: black;
         display: flex;
         justify-content: center;
@@ -39,7 +39,7 @@ export const TodoContainer = styled.div`
         transition: all 1s ease;
 
         & ul {
-            min-width: 30%;
+            min-width: 10%;
             list-style: none;
         }
     `;
@@ -48,30 +48,31 @@ export const TodoForm = styled.form`
             all:unset;
             display: flex;
             justify-content: space-between;
-            max-width: 90%;
-            min-width: 90%;
+            max-width: 95%;
+            min-width: 95%;
     `;
 
 export const TodoLi = styled.li`
             background: white;
             flex:1 1;
-            padding: 0rem 0.5rem;
-            background:${props => props.background};
+            padding: 0.2rem 0.5rem;
+            color:${props => props.background};
             ${props => props.completed && css`
             text-decoration: line-through;
-            color:rgba(173, 173, 173, 0.867);
+            color:${props => props.background};
             `}
     `;
 
 export const TodoInput = styled.input`
-            font-size: 2.1rem;
-            padding: 0 0.5rem;
+            font-size: 1rem;
+            padding: 0.2rem 0.5rem;
             font-family: "Poppins", sans-serif;
             border: none;
             box-sizing: border-box;
-            min-width: calc(100% - 9rem + 2px);
+            min-width: calc(100% - 6rem + 2px);
+            color: ${props => props.background};
 
             ${props => props.completed && css`
-            color: rgba(173, 173, 173, 0.867);
+            color: ${props => props.background};
             `}
     `;
