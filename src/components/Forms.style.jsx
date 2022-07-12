@@ -6,7 +6,7 @@ background: #f7fffe;
 cursor: pointer;
 transition: all 0.3s ease;
 padding: 0.5rem;
-font-size: 1.75rem;
+font-size: 1.70rem;
 border: none;
 background: white;
 
