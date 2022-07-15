@@ -6,7 +6,7 @@ export const FormButton = styled.button`
   cursor: pointer;
   transition: all 0.3s ease;
   padding: 0.5rem;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   border: none;
   background: white;
 
