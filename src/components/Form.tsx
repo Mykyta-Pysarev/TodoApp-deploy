@@ -1,6 +1,18 @@
-import React, { useState } from "react";
+import React, { FC, ChangeEvent, useState } from "react";
 import fetchData from "../FetchData";
 import { FormButton, FormDiv } from "./Forms.style";
+import {Itodos} from "./Interfaces";
+
+interface Props {
+  todos:Itodos[],
+  setTodos:React.Dispatch<React.SetStateAction<Itodos[]>>,
+  setStatus:React.Dispatch<React.SetStateAction<string>>,
+  setCounterAdd:React.Dispatch<React.SetStateAction<number>>,
+  counterAdd:number,
+  counterEdit:number,
+  counterDelete:number,
+  setCounterDelete:React.Dispatch<React.SetStateAction<number>>,
+}
 
 const Form = ({
   todos,
@@ -11,18 +23,18 @@ const Form = ({
   counterEdit,
   counterDelete,
   setCounterDelete,
-}) => {
+}:Props) => {
   const [inputText, setInputText] = useState("");
 
-  const inputTextHandler = (e) => {
+  const inputTextHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setInputText(e.target.value);
   };
 
-  const getRandomIntInclusive = () => {
+  const getRandomIntInclusive = ():number => {
     return Math.floor(Math.random() * (255 - 0 + 1)) + 0;
   };
 
-  const submitTodoHandler = (e) => {
+  const submitTodoHandler = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const date = new Date();
     setTodos([
@@ -46,13 +58,12 @@ const Form = ({
     setCounterAdd(counterAdd + result.length);
   };
 
-  const deleteAll = (e) => {
-    e.preventDefault();
+  const deleteAll = ():void => {
     setCounterDelete(counterDelete + todos.length);
     setTodos([]);
   };
 
-  const statusHandler = (e) => {
+  const statusHandler = (e: ChangeEvent<HTMLSelectElement>) => {
     setStatus(e.target.value);
   };
 
@@ -69,13 +80,13 @@ const Form = ({
           <i className="fas fa-trash"></i> {counterDelete + "\u00a0\u00a0"}
         </div>
         <div>
-          <FormButton importButton onClick={importTodos}>
+          <FormButton<any> importButton onClick={importTodos}>
             <i className="fas fa-solid fa-file-medical"></i>
           </FormButton>
           {"\u00a0\u00a0"}
         </div>
         <div>
-          <FormButton deleteAll onClick={deleteAll}>
+          <FormButton<any> deleteAll onClick={deleteAll}>
             <i className="fas fa-trash"></i>
           </FormButton>
         </div>
@@ -87,7 +98,7 @@ const Form = ({
           type="text"
           className="todo-input"
         />
-        <FormButton onClick={submitTodoHandler} type="submit">
+        <FormButton<any> onClick={submitTodoHandler} type="submit">
           <i className="fas fa-plus-square"></i>
         </FormButton>
         <FormDiv>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ChangeEvent ,useState } from "react";
 import {
   Button,
   TodoContainer,
@@ -6,6 +6,19 @@ import {
   TodoInput,
   TodoLi,
 } from "./Todo.style";
+import {Itodos} from "./Interfaces"
+
+interface Props {
+  background:string,
+  text:string,
+  todos:Itodos[],
+  setTodos:React.Dispatch<React.SetStateAction<Itodos[]>>,
+  todo:Itodos,
+  counterEdit:number,
+  counterDelete:number,
+  setCounterEdit:React.Dispatch<React.SetStateAction<number>>,
+  setCounterDelete:React.Dispatch<React.SetStateAction<number>>,
+}
 
 const Todo = ({
   background,
@@ -17,19 +30,18 @@ const Todo = ({
   counterDelete,
   setCounterEdit,
   setCounterDelete,
-  id,
-}) => {
+}:Props) => {
   const [editState, setEditState] = useState(false);
   const [editText, setEditText] = useState(text);
 
-  const deleteHandler = (e) => {
+  const deleteHandler = (e: ChangeEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     setCounterDelete(counterDelete + 1);
     setTodos(todos.filter((el) => el.id !== todo.id));
   };
 
-  const completeHandler = (e) => {
+  const completeHandler = (e: ChangeEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     setTodos(
@@ -45,15 +57,14 @@ const Todo = ({
   let todoElement;
   let editButton;
 
-  const editHandler = (e) => {
+  const editHandler = (e: ChangeEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     setEditState(true);
   };
 
-  const editFinished = (e) => {
+  const editFinished = (e: ChangeEvent<HTMLButtonElement>) => {
     e.preventDefault();
-
     setTodos(
       todos.map((item) => {
         if (item.id === todo.id) {
@@ -68,11 +79,11 @@ const Todo = ({
     setEditState(false);
   };
 
-  const inputTextHandler = (e) => {
+  const inputTextHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setEditText(e.target.value);
   };
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e: KeyboardEvent) => {
     if (e.keyCode === 27){
         setEditText(text);
         setEditState(false);
@@ -81,7 +92,7 @@ const Todo = ({
 
   if (editState && todo.completed) {
     todoElement = (
-      <TodoInput
+      <TodoInput<any>
         completed
         background={background}
         type="text"
@@ -93,7 +104,7 @@ const Todo = ({
     );
   } else if (editState && !todo.completed) {
     todoElement = (
-      <TodoInput
+      <TodoInput<any>
         background={background}
         type="text"
         autoFocus="autofocus"
@@ -103,10 +114,10 @@ const Todo = ({
       />
     );
   } else if (!editState && !todo.completed) {
-    todoElement = <TodoLi background={background}>{text}</TodoLi>;
+    todoElement = <TodoLi<any> background={background}>{text}</TodoLi>;
   } else {
     todoElement = (
-      <TodoLi completed background={background}>
+      <TodoLi<any> completed background={background}>
         {text}
       </TodoLi>
     );
@@ -114,7 +125,7 @@ const Todo = ({
 
   if (editState) {
     editButton = (
-      <Button
+      <Button<any>
         editActive
         edit
         type="submit"
@@ -126,7 +137,7 @@ const Todo = ({
     );
   } else {
     editButton = (
-      <Button edit type="submit" className="edit-btn" onClick={editHandler}>
+      <Button<any> edit type="submit" className="edit-btn" onClick={editHandler}>
         <i className="fas fa-solid fa-pen"></i>
       </Button>
     );
@@ -136,11 +147,11 @@ const Todo = ({
     <TodoContainer>
       <TodoForm>
         {todoElement}
-        <Button complete type="button" onClick={completeHandler}>
+        <Button<any> complete type="button" onClick={completeHandler}>
           <i className="fas fa-check"></i>
         </Button>
         {editButton}
-        <Button type="button" className="trash-btn" onClick={deleteHandler}>
+        <Button<any> type="button" className="trash-btn" onClick={deleteHandler}>
           <i className="fas fa-trash"></i>
         </Button>
       </TodoForm>

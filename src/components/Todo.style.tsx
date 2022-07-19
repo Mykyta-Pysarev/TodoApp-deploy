@@ -1,6 +1,14 @@
 import styled, { css } from "styled-components";
 
-export const Button = styled.button`
+interface Props {
+  completed:any,
+  edit:any,
+  editActive:any,
+  background:any,
+  complete:any,
+}
+
+export const Button = styled.button<Props>`
   background: #f1d713;
   color: white;
   border: none;
@@ -65,7 +73,7 @@ export const TodoForm = styled.form`
   min-width: 95%;
 `;
 
-export const TodoLi = styled.li`
+export const TodoLi = styled.li<Props>`
   min-width: 17em;
   max-width: 95%;
   background: white;
@@ -74,13 +82,13 @@ export const TodoLi = styled.li`
   color: ${(props) => props.background};
   ${(props) =>
     props.completed &&
-    css`
+    css<Props>`
       text-decoration: line-through;
       color: ${(props) => props.background};
     `}
 `;
 
-export const TodoInput = styled.input`
+export const TodoInput = styled.input<Props>`
   min-width: 17rem;
   width: 100%;
   display: block;
@@ -93,7 +101,7 @@ export const TodoInput = styled.input`
 
   ${(props) =>
     props.completed &&
-    css`
+    css<Props>`
       text-decoration: line-through;
       color: ${(props) => props.background};
     `}

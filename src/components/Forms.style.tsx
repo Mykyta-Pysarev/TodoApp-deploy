@@ -1,6 +1,12 @@
-import styled, { css } from "styled-components";
+import styled, { css, StyledComponent } from "styled-components";
 
-export const FormButton = styled.button`
+interface Props {
+  importButton:boolean,
+  deleteAll:any,
+}
+
+
+export const FormButton = styled.button<Props>`
   color: rgb(11, 212, 162);
   background: #f7fffe;
   cursor: pointer;

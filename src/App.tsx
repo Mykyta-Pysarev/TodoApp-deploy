@@ -1,32 +1,33 @@
-import React, { useState, useEffect } from "react";
+import React, { FC, useState, useEffect } from "react";
 import "./components/styles.scss";
 import Form from "./components/Form";
 import TodoList from "./components/TodoList";
+import {Itodos} from "./components/Interfaces"
 
-function App() {
-  const [todos, setTodos] = useState([]);
-  const [status, setStatus] = useState("all");
-  const [filterTodos, setFilterTodos] = useState([]);
-  const [counterAdd, setCounterAdd] = useState(0);
-  const [counterEdit, setCounterEdit] = useState(0);
-  const [counterDelete, setCounterDelete] = useState(0);
+const App: FC = () => {
+  const [todos, setTodos] = useState<Itodos[]>([]);
+  const [status, setStatus] = useState<string>("all");
+  const [filterTodos, setFilterTodos] = useState<Itodos[]>([]);
+  const [counterAdd, setCounterAdd] = useState<number>(0);
+  const [counterEdit, setCounterEdit] = useState<number>(0);
+  const [counterDelete, setCounterDelete] = useState<number>(0);
 
-  useEffect(() => {
+  useEffect(():void => {
     getLocalTodos();
   }, []);
 
-  useEffect(() => {
+  useEffect(():void => {
     filterHandler();
     saveLocalTodos();
   }, [todos, status]);
 
-  const filterHandler = () => {
+  const filterHandler = ():void => {
     switch (status) {
       case "completed":
-        setFilterTodos(todos.filter((todo) => todo.completed === true));
+        setFilterTodos(todos.filter((todo) => todo['completed'] === true));
         break;
       case "uncompleted":
-        setFilterTodos(todos.filter((todo) => todo.completed === false));
+        setFilterTodos(todos.filter((todo) => todo['completed'] === false));
         break;
       default:
         setFilterTodos(todos);
@@ -34,15 +35,15 @@ function App() {
     }
   };
 
-  const saveLocalTodos = () => {
+  const saveLocalTodos = ():void => {
     localStorage.setItem("todos", JSON.stringify(todos));
   };
 
-  const getLocalTodos = async () => {
+  const getLocalTodos = async ():Promise<void> => {
     if (localStorage.getItem("todos") === null) {
-      localStorage.setItem([]);
+      localStorage.setItem("todos",JSON.stringify([]));
     } else {
-      const todoLocal = JSON.parse(localStorage.getItem("todos"));
+      const todoLocal = JSON.parse(localStorage.getItem("todos")!);
       setTodos(todoLocal);
     }
   };
