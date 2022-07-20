@@ -1,11 +1,11 @@
 import styled, { css } from "styled-components";
 
 interface Props {
-  completed:any,
-  edit:any,
-  editActive:any,
-  background:any,
-  complete:any,
+  completed:boolean,
+  edit:boolean,
+  editActive:boolean,
+  background:string,
+  complete:boolean,
 }
 
 export const Button = styled.button<Props>`

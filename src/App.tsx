@@ -1,8 +1,8 @@
 import React, { FC, useState, useEffect } from "react";
-import "./components/styles.scss";
+import "./styles.scss";
 import Form from "./components/Form";
 import TodoList from "./components/TodoList";
-import {Itodos} from "./components/Interfaces"
+import {Itodos} from "./Interfaces"
 
 const App: FC = () => {
   const [todos, setTodos] = useState<Itodos[]>([]);

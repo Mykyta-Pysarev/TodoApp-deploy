@@ -1,7 +1,8 @@
 import React, { FC, ChangeEvent, useState } from "react";
 import fetchData from "../FetchData";
 import { FormButton, FormDiv } from "./Forms.style";
-import {Itodos} from "./Interfaces";
+import {Itodos} from "../Interfaces";
+import {getRandomRGB} from "../help/rgbRandom"
 
 interface Props {
   todos:Itodos[],
@@ -31,7 +32,7 @@ const Form = ({
   };
 
   const getRandomIntInclusive = ():number => {
-    return Math.floor(Math.random() * (255 - 0 + 1));
+    return Math.floor(Math.random() * (255 + 1));
   };
 
   const submitTodoHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -45,7 +46,7 @@ const Form = ({
         id: Math.random() * 1000,
         // createdAt: `${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}`
         createdAt: date,
-        background: `rgb(${getRandomIntInclusive()}, ${getRandomIntInclusive()}, ${getRandomIntInclusive()})`,
+        background: `rgb(${getRandomRGB()}, ${getRandomRGB()}, ${getRandomRGB()})`,
       },
     ]);
     setInputText("");

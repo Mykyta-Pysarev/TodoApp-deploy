@@ -1,7 +1,7 @@
 import React from "react";
 import Todo from "./Todo";
 import { TodoContainer } from "./Todo.style";
-import {Itodos} from "./Interfaces"
+import {Itodos} from "../Interfaces"
 
 interface Props {
   todos:Itodos[],

@@ -6,7 +6,7 @@ import {
   TodoInput,
   TodoLi,
 } from "./Todo.style";
-import {Itodos} from "./Interfaces"
+import {Itodos} from "../Interfaces"
 
 interface Props {
   background:string,
@@ -84,7 +84,7 @@ const Todo = ({
   };
 
   const handleKeyDown = (e: KeyboardEvent) => {
-    if (e.keyCode === 27){
+    if (e.key === 'Escape'){
         setEditText(text);
         setEditState(false);
     }
