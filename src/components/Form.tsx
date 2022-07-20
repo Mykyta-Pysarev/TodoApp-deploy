@@ -31,7 +31,7 @@ const Form = ({
   };
 
   const getRandomIntInclusive = ():number => {
-    return Math.floor(Math.random() * (255 - 0 + 1)) + 0;
+    return Math.floor(Math.random() * (255 - 0 + 1));
   };
 
   const submitTodoHandler = (e: ChangeEvent<HTMLInputElement>) => {
