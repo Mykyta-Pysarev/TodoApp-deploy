@@ -1,14 +1,17 @@
+import {MouseEvent} from "react";
 import styled, { css } from "styled-components";
+import reactTextareaAutosize from "react-textarea-autosize";
 
-interface Props {
-  completed:boolean,
-  edit:boolean,
-  editActive:boolean,
-  background:string,
-  complete:boolean,
+interface buttonProps {
+  completed?: boolean,
+  edit?: boolean,
+  editActive?: boolean,
+  background?: string,
+  complete?: boolean,
+  onClick:React.MouseEventHandler<HTMLButtonElement> | MouseEvent,
 }
 
-export const Button = styled.button<Props>`
+export const Button = styled.button<buttonProps>`
   background: #f1d713;
   color: white;
   border: none;
@@ -24,7 +27,7 @@ export const Button = styled.button<Props>`
 
   ${(props) =>
     props.complete &&
-    css`
+    css<buttonProps>`
       background: rgb(11, 212, 162);
       &:hover {
         color: rgb(11, 212, 162);
@@ -33,7 +36,7 @@ export const Button = styled.button<Props>`
 
   ${(props) =>
     props.edit &&
-    css`
+    css<buttonProps>`
       background: rgba(173, 173, 173, 0.867);
       &:hover {
         color: rgba(173, 173, 173, 0.867);
@@ -42,7 +45,7 @@ export const Button = styled.button<Props>`
 
     ${(props) =>
     props.editActive &&
-    css`
+    css<buttonProps>`
       background: red;
       &:hover {
         color: red;
@@ -73,7 +76,12 @@ export const TodoForm = styled.form`
   min-width: 95%;
 `;
 
-export const TodoLi = styled.li<Props>`
+interface todoLiProps {
+  completed?: boolean;
+  background: string;
+}
+
+export const TodoLi = styled.li<todoLiProps>`
   min-width: 17em;
   max-width: 95%;
   background: white;
@@ -82,13 +90,23 @@ export const TodoLi = styled.li<Props>`
   color: ${(props) => props.background};
   ${(props) =>
     props.completed &&
-    css<Props>`
+    css<todoLiProps>`
       text-decoration: line-through;
       color: ${(props) => props.background};
     `}
 `;
 
-export const TodoInput = styled.input<Props>`
+interface todoInputProps {
+  completed?: boolean;
+  background: string;
+  autoFocus: boolean;
+  value: string;
+  onKeyDown:
+    | React.KeyboardEventHandler<HTMLInputElement>
+    | React.KeyboardEvent<HTMLInputElement>;
+}
+
+export const TodoInput = styled.input<todoInputProps>`
   min-width: 17rem;
   width: 100%;
   display: block;
@@ -101,7 +119,7 @@ export const TodoInput = styled.input<Props>`
 
   ${(props) =>
     props.completed &&
-    css<Props>`
+    css<todoInputProps>`
       text-decoration: line-through;
       color: ${(props) => props.background};
     `}
