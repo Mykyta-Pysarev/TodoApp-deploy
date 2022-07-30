@@ -2,75 +2,61 @@ import React, { FC, useState, useEffect } from "react";
 import "./styles.scss";
 import Form from "./components/Form";
 import TodoList from "./components/TodoList";
-import {Itodos} from "./Interfaces"
+import AddModal from "./components/Modal";
+
 
 const App: FC = () => {
-  const [todos, setTodos] = useState<Itodos[]>([]);
-  const [status, setStatus] = useState<string>("all");
-  const [filterTodos, setFilterTodos] = useState<Itodos[]>([]);
-  const [counterAdd, setCounterAdd] = useState<number>(0);
+  
+  // const [todos, setTodos] = useState<Itodos[]>([]);
+  // const [status, setStatus] = useState<string>("all");
+  // const [filterTodos, setFilterTodos] = useState<Itodos[]>([]);
+  // const [counterAdd, setCounterAdd] = useState<number>(0);
   const [counterEdit, setCounterEdit] = useState<number>(0);
   const [counterDelete, setCounterDelete] = useState<number>(0);
 
-  useEffect(():void => {
-    getLocalTodos();
-  }, []);
+  // useEffect(():void => {
+  //   getLocalTodos();
+  // }, []);
 
-  useEffect(():void => {
-    filterHandler();
-    saveLocalTodos();
-  }, [todos, status]);
+  // useEffect(():void => {
+  //   filterHandler();
+  //   saveLocalTodos();
+  // }, [Atodos, status]);
 
-  const filterHandler = ():void => {
-    switch (status) {
-      case "completed":
-        setFilterTodos(todos.filter((todo) => todo['completed'] === true));
-        break;
-      case "uncompleted":
-        setFilterTodos(todos.filter((todo) => todo['completed'] === false));
-        break;
-      default:
-        setFilterTodos(todos);
-        break;
-    }
-  };
+  // const filterHandler = ():void => {
+    // switch (status) {
+    //   case "completed":
+    //     setFilterTodos(Atodos.filter((todo:Itodos) => todo['completed'] === true));
+    //     break;
+    //   case "uncompleted":
+    //     setFilterTodos(Atodos.filter((todo:Itodos) => todo['completed'] === false));
+    //     break;
+    //   default:
+    //     setFilterTodos(Atodos);
+    //     break;
+    // }
+  // };
 
-  const saveLocalTodos = ():void => {
-    localStorage.setItem("todos", JSON.stringify(todos));
-  };
-
-  const getLocalTodos = async ():Promise<void> => {
-    if (localStorage.getItem("todos") === null) {
-      localStorage.setItem("todos",JSON.stringify([]));
-    } else {
-      const todoLocal = JSON.parse(localStorage.getItem("todos")!);
-      setTodos(todoLocal);
-    }
-  };
+  // const saveLocalTodos = ():void => {
+  //   localStorage.setItem("todos", JSON.stringify(Atodos));
+  // };
 
   return (
-    <div className="App">
+    <div>
       <header>
         <h1>To do list</h1>
       </header>
+      <AddModal />
       <Form
-        todos={todos}
-        setTodos={setTodos}
-        setStatus={setStatus}
-        counterAdd={counterAdd}
-        setCounterAdd={setCounterAdd}
         counterEdit={counterEdit}
         counterDelete={counterDelete}
         setCounterDelete={setCounterDelete}
       />
-      <TodoList
-        todos={todos}
-        setTodos={setTodos}
-        filterTodos={filterTodos}
-        counterEdit={counterEdit}
-        setCounterEdit={setCounterEdit}
-        counterDelete={counterDelete}
-        setCounterDelete={setCounterDelete}
+      <TodoList 
+      counterEdit={counterEdit}
+      setCounterEdit={setCounterEdit}
+      counterDelete={counterDelete}
+      setCounterDelete={setCounterDelete}
       />
     </div>
   );

@@ -1,71 +1,60 @@
-import React, { FC, ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import fetchData from "../FetchData";
 import { FormButton, FormDiv } from "./Forms.style";
-import {Itodos} from "../Interfaces";
-import {getRandomRGB} from "../help/rgbRandom"
-
+import { useDispatch, useSelector } from "react-redux";
+import { getRandomRGB } from "../help/rgbRandom";
+import { todoAdded, todoImport, todoDeleteAll} from "../features/todos";
+import { counterAddInc } from "../features/counterAdd";
+import { filterState } from "../features/filterState";
 interface Props {
-  todos:Itodos[],
-  setTodos:React.Dispatch<React.SetStateAction<Itodos[]>>,
-  setStatus:React.Dispatch<React.SetStateAction<string>>,
-  setCounterAdd:React.Dispatch<React.SetStateAction<number>>,
-  counterAdd:number,
-  counterEdit:number,
-  counterDelete:number,
-  setCounterDelete:React.Dispatch<React.SetStateAction<number>>,
+  counterEdit: number;
+  counterDelete: number;
+  setCounterDelete: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const Form = ({
-  todos,
-  setTodos,
-  setStatus,
-  setCounterAdd,
-  counterAdd,
   counterEdit,
   counterDelete,
   setCounterDelete,
-}:Props) => {
+}: Props) => {
+  const dispatch = useDispatch();
   const [inputText, setInputText] = useState("");
+
+  const counterAdd = useSelector((state:any) => state.counterAdd.value);
 
   const inputTextHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setInputText(e.target.value);
   };
 
-  const getRandomIntInclusive = ():number => {
-    return Math.floor(Math.random() * (255 + 1));
-  };
-
   const submitTodoHandler = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    const date = new Date();
-    setTodos([
-      ...todos,
-      {
+    dispatch(
+      todoAdded({
         text: inputText,
         completed: false,
         id: Math.random() * 1000,
-        // createdAt: `${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}`
-        createdAt: date,
+        createdAt: String(new Date()),
         background: `rgb(${getRandomRGB()}, ${getRandomRGB()}, ${getRandomRGB()})`,
-      },
-    ]);
+      }),
+    );
+    dispatch(counterAddInc(1));
     setInputText("");
-    setCounterAdd(counterAdd + 1);
   };
 
   const importTodos = async () => {
     const result = await fetchData();
-    setTodos([...todos, ...result]);
-    setCounterAdd(counterAdd + result.length);
+    dispatch(
+      todoImport(result));
+      dispatch(counterAddInc(result.length));
   };
 
-  const deleteAll = ():void => {
-    setCounterDelete(counterDelete + todos.length);
-    setTodos([]);
+  const deleteAll = (): void => {
+    // setCounterDelete(counterDelete + todos.length);
+    dispatch(todoDeleteAll());
   };
 
   const statusHandler = (e: ChangeEvent<HTMLSelectElement>) => {
-    setStatus(e.target.value);
+    dispatch(filterState(e.target.value));
   };
 
   return (

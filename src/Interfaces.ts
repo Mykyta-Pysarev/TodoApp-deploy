@@ -1,8 +1,8 @@
 export interface Itodos {
     text: string,
-    completed?:boolean,
+    completed:boolean,
     id:number,
-    createdAt:Date,
+    createdAt:string,
     background:string,
   }
 

@@ -6,13 +6,15 @@ import {
   TodoInput,
   TodoLi,
 } from "./Todo.style";
-import {Itodos} from "../Interfaces"
+import {Itodos} from "../Interfaces";
+import { useDispatch } from "react-redux";
+import { todoDelete, todoEdit, todoCompleted} from "../features/todos";
+import { useSelector } from "react-redux";
 
 interface Props {
   background:string,
   text:string,
   todos:Itodos[],
-  setTodos:React.Dispatch<React.SetStateAction<Itodos[]>>,
   todo:Itodos,
   counterEdit:number,
   counterDelete:number,
@@ -24,34 +26,31 @@ const Todo = ({
   background,
   text,
   todos,
-  setTodos,
   todo,
   counterEdit,
   counterDelete,
   setCounterEdit,
   setCounterDelete,
 }:Props) => {
+  const dispatch = useDispatch();
+  const Atodos = useSelector((state:any) => state.todos);
+
   const [editState, setEditState] = useState(false);
   const [editText, setEditText] = useState(text);
+  
+  
 
   const deleteHandler = (e: MouseEvent) => {
     e.preventDefault();
-
     setCounterDelete(counterDelete + 1);
-    setTodos(todos.filter((el) => el.id !== todo.id));
+    dispatch(todoDelete(todos.indexOf(todo)));
   };
 
   const completeHandler = (e: MouseEvent) => {
     e.preventDefault();
-
-    setTodos(
-      todos.map((item) => {
-        if (item.id === todo.id) {
-          return { ...item, completed: !item.completed };
-        }
-        return item;
-      })
-    );
+      dispatch(todoCompleted(
+        {id:todo.id,completed: true}
+      ));
   };
 
   let todoElement;
@@ -64,17 +63,12 @@ const Todo = ({
 
   const editFinished = (e: MouseEvent) => {
     e.preventDefault();
-    setTodos(
-      todos.map((item) => {
-        if (item.id === todo.id) {
-          if (item.text !== editText) {
-            setCounterEdit(counterEdit + 1);
-          }
-          return { ...item, text: editText };
-        }
-        return item;
-      })
-    );
+    if (todo.text !== editText) {
+      setCounterEdit(counterEdit + 1);
+    }
+    dispatch(todoEdit(
+      {id: todo.id, text: editText}
+    ));
     setEditState(false);
   };
 
