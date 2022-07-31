@@ -1,32 +1,25 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useState, MouseEvent } from "react";
 import fetchData from "../FetchData";
 import { FormButton, FormDiv } from "./Forms.style";
 import { useDispatch, useSelector } from "react-redux";
 import { getRandomRGB } from "../help/rgbRandom";
-import { todoAdded, todoImport, todoDeleteAll} from "../features/todos";
-import { counterAddInc } from "../features/counterAdd";
+import { todoAdded, todoImport, todoDeleteAll } from "../features/todos";
+import { counterAddInc, counterDeleteInc } from "../features/counterAdd";
 import { filterState } from "../features/filterState";
-interface Props {
-  counterEdit: number;
-  counterDelete: number;
-  setCounterDelete: React.Dispatch<React.SetStateAction<number>>;
-}
 
-const Form = ({
-  counterEdit,
-  counterDelete,
-  setCounterDelete,
-}: Props) => {
+const Form = ({}) => {
   const dispatch = useDispatch();
   const [inputText, setInputText] = useState("");
-
-  const counterAdd = useSelector((state:any) => state.counterAdd.value);
+  const Atodos = useSelector((state: any) => state.todos);
+  const counterAdd = useSelector((state: any) => state.counters.add);
+  const counterEdit = useSelector((state: any) => state.counters.edit);
+  const counterDelete = useSelector((state: any) => state.counters.delete);
 
   const inputTextHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setInputText(e.target.value);
   };
 
-  const submitTodoHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  const submitTodoHandler = (e: MouseEvent) => {
     e.preventDefault();
     dispatch(
       todoAdded({
@@ -35,7 +28,7 @@ const Form = ({
         id: Math.random() * 1000,
         createdAt: String(new Date()),
         background: `rgb(${getRandomRGB()}, ${getRandomRGB()}, ${getRandomRGB()})`,
-      }),
+      })
     );
     dispatch(counterAddInc(1));
     setInputText("");
@@ -43,13 +36,12 @@ const Form = ({
 
   const importTodos = async () => {
     const result = await fetchData();
-    dispatch(
-      todoImport(result));
-      dispatch(counterAddInc(result.length));
+    dispatch(todoImport(result));
+    dispatch(counterAddInc(result.length));
   };
 
   const deleteAll = (): void => {
-    // setCounterDelete(counterDelete + todos.length);
+    dispatch(counterDeleteInc(Atodos.length));
     dispatch(todoDeleteAll());
   };
 
@@ -70,13 +62,13 @@ const Form = ({
           <i className="fas fa-trash"></i> {counterDelete + "\u00a0\u00a0"}
         </div>
         <div>
-          <FormButton<any> importButton onClick={importTodos}>
+          <FormButton importButton onClick={importTodos}>
             <i className="fas fa-solid fa-file-medical"></i>
           </FormButton>
           {"\u00a0\u00a0"}
         </div>
         <div>
-          <FormButton<any> deleteAll onClick={deleteAll}>
+          <FormButton deleteAll onClick={deleteAll}>
             <i className="fas fa-trash"></i>
           </FormButton>
         </div>
@@ -88,7 +80,7 @@ const Form = ({
           type="text"
           className="todo-input"
         />
-        <FormButton<any> onClick={submitTodoHandler} type="submit">
+        <FormButton onClick={submitTodoHandler} type="submit">
           <i className="fas fa-plus-square"></i>
         </FormButton>
         <FormDiv>

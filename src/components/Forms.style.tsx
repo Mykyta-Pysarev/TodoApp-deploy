@@ -1,12 +1,12 @@
-import styled, { css, StyledComponent } from "styled-components";
+import styled, { css } from "styled-components";
 
-interface Props {
-  importButton:boolean,
-  deleteAll:any,
+interface FormButtonProps {
+  onClick: React.MouseEventHandler<HTMLButtonElement> | MouseEvent;
+  importButton?: boolean;
+  deleteAll?: boolean;
 }
 
-
-export const FormButton = styled.button<Props>`
+export const FormButton = styled.button<FormButtonProps>`
   color: rgb(11, 212, 162);
   background: #f7fffe;
   cursor: pointer;

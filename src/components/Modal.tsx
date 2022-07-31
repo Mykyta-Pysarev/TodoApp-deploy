@@ -1,8 +1,8 @@
 import React, { ChangeEvent, useState } from "react";
 import Modal from "react-modal";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getRandomRGB } from "../help/rgbRandom";
-import { todoAdded, todoImport } from "../features/todos";
+import { todoAdded } from "../features/todos";
 import { counterAddInc } from "../features/counterAdd";
 
 const customStyles = {
@@ -86,17 +86,19 @@ const AddModal = () => {
         style={customStyles}
         contentLabel="Example Modal"
       >
-        <button
-          style={{
-            color: "red",
-            background: "none",
-            border: "none",
-            margin: 0,
-          }}
-          onClick={closeModal}
-        >
-          X
-        </button>
+        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+          <button
+            style={{
+              color: "white",
+              background: "none",
+              border: "none",
+              margin: 0,
+            }}
+            onClick={closeModal}
+          >
+            X
+          </button>
+        </div>
         <div>Add new task</div>
         <form>
           <input value={inputText} onChange={inputTextHandler} autoFocus />

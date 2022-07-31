@@ -1,14 +1,13 @@
-import {MouseEvent} from "react";
+import { MouseEvent } from "react";
 import styled, { css } from "styled-components";
-import reactTextareaAutosize from "react-textarea-autosize";
 
 interface buttonProps {
-  completed?: boolean,
-  edit?: boolean,
-  editActive?: boolean,
-  background?: string,
-  complete?: boolean,
-  onClick:React.MouseEventHandler<HTMLButtonElement> | MouseEvent,
+  completed?: boolean;
+  edit?: boolean;
+  editActive?: boolean;
+  background?: string;
+  complete?: boolean;
+  onClick: React.MouseEventHandler<HTMLButtonElement> | MouseEvent;
 }
 
 export const Button = styled.button<buttonProps>`

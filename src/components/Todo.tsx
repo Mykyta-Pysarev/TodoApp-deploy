@@ -1,4 +1,4 @@
-import React, { ChangeEvent ,useState, MouseEvent } from "react";
+import React, { ChangeEvent, useState, MouseEvent } from "react";
 import {
   Button,
   TodoContainer,
@@ -6,51 +6,33 @@ import {
   TodoInput,
   TodoLi,
 } from "./Todo.style";
-import {Itodos} from "../Interfaces";
+import { Itodos } from "../Interfaces";
 import { useDispatch } from "react-redux";
-import { todoDelete, todoEdit, todoCompleted} from "../features/todos";
-import { useSelector } from "react-redux";
+import { todoDelete, todoEdit, todoCompleted } from "../features/todos";
+import { counterEditInc, counterDeleteInc } from "../features/counterAdd";
 
 interface Props {
-  background:string,
-  text:string,
-  todos:Itodos[],
-  todo:Itodos,
-  counterEdit:number,
-  counterDelete:number,
-  setCounterEdit:React.Dispatch<React.SetStateAction<number>>,
-  setCounterDelete:React.Dispatch<React.SetStateAction<number>>,
+  background: string;
+  text: string;
+  todos: Itodos[];
+  todo: Itodos;
 }
 
-const Todo = ({
-  background,
-  text,
-  todos,
-  todo,
-  counterEdit,
-  counterDelete,
-  setCounterEdit,
-  setCounterDelete,
-}:Props) => {
+const Todo = ({ background, text, todos, todo }: Props) => {
   const dispatch = useDispatch();
-  const Atodos = useSelector((state:any) => state.todos);
 
   const [editState, setEditState] = useState(false);
   const [editText, setEditText] = useState(text);
-  
-  
 
   const deleteHandler = (e: MouseEvent) => {
     e.preventDefault();
-    setCounterDelete(counterDelete + 1);
+    dispatch(counterDeleteInc(1));
     dispatch(todoDelete(todos.indexOf(todo)));
   };
 
   const completeHandler = (e: MouseEvent) => {
     e.preventDefault();
-      dispatch(todoCompleted(
-        {id:todo.id,completed: true}
-      ));
+    dispatch(todoCompleted({ id: todo.id, completed: true }));
   };
 
   let todoElement;
@@ -64,11 +46,9 @@ const Todo = ({
   const editFinished = (e: MouseEvent) => {
     e.preventDefault();
     if (todo.text !== editText) {
-      setCounterEdit(counterEdit + 1);
+      dispatch(counterEditInc(1));
     }
-    dispatch(todoEdit(
-      {id: todo.id, text: editText}
-    ));
+    dispatch(todoEdit({ id: todo.id, text: editText }));
     setEditState(false);
   };
 
@@ -77,11 +57,11 @@ const Todo = ({
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Escape'){
-        setEditText(text);
-        setEditState(false);
+    if (e.key === "Escape") {
+      setEditText(text);
+      setEditState(false);
     }
-  }
+  };
 
   if (editState && todo.completed) {
     todoElement = (

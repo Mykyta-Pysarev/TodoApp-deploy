@@ -4,61 +4,55 @@ import { TodoContainer } from "./Todo.style";
 import { Itodos } from "../Interfaces";
 import { useSelector } from "react-redux";
 
-interface Props {
-  counterEdit: number;
-  counterDelete: number;
-  setCounterEdit: React.Dispatch<React.SetStateAction<number>>;
-  setCounterDelete: React.Dispatch<React.SetStateAction<number>>;
-}
-
-const TodoList = ({
-  counterEdit,
-  counterDelete,
-  setCounterEdit,
-  setCounterDelete,
-}: Props) => {
+const TodoList = () => {
   const Atodos = useSelector((state: any) => state.todos);
-  const filterStatus = useSelector((state: any) => state.filterStatus);
-  const sortTodos = Atodos.slice().sort(
+  const filterStatus = useSelector((state: any) => state.filterState);
+  const sortTodos: Itodos[] = Atodos.slice().sort(
     (a: Itodos, b: Itodos) =>
       Number(new Date(b.createdAt)) - Number(new Date(a.createdAt))
   );
 
+  let todoList;
 
-  // const setTodosFilter = () => {
-  //   switch (filterStatus) {
-  //     case "completed":
-  //       return (sortTodos.filter((todo:Itodos) => todo['completed'] === true));
-  //       break;
-  //     case "uncompleted":
-  //       sortTodos.filter((todo:Itodos) => todo['completed'] === false);
-  //       break;
-  //     default:
-  //       sortTodos;
-  //       break;
-  //   }
-  // }
- 
+  if (filterStatus === "completed") {
+    todoList = sortTodos.map((todo: Itodos) =>
+      todo.completed ? (
+        <Todo
+          background={todo.background}
+          key={todo.id}
+          text={todo.text}
+          todo={todo}
+          todos={Atodos}
+        />
+      ) : null
+    );
+  } else if (filterStatus === "uncompleted") {
+    todoList = sortTodos.map((todo: Itodos) =>
+      !todo.completed ? (
+        <Todo
+          background={todo.background}
+          key={todo.id}
+          text={todo.text}
+          todo={todo}
+          todos={Atodos}
+        />
+      ) : null
+    );
+  } else {
+    todoList = sortTodos.map((todo: Itodos) => (
+      <Todo
+        background={todo.background}
+        key={todo.id}
+        text={todo.text}
+        todo={todo}
+        todos={Atodos}
+      />
+    ));
+  }
 
   return (
     <TodoContainer>
-      <ul>
-        {sortTodos.map((todo: Itodos) =>
-          !todo.completed ? (
-            <Todo
-              background={todo.background}
-              key={todo.id}
-              text={todo.text}
-              todo={todo}
-              todos={Atodos}
-              counterEdit={counterEdit}
-              setCounterEdit={setCounterEdit}
-              counterDelete={counterDelete}
-              setCounterDelete={setCounterDelete}
-            />
-          ) : undefined
-        )}
-      </ul>
+      <ul>{todoList}</ul>
     </TodoContainer>
   );
 };
